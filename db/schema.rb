@@ -11,20 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160102221106) do
+ActiveRecord::Schema.define(version: 20160102230922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "jobs", force: :cascade do |t|
     t.string   "source"
-    t.string   "attribute_albumId"
-    t.integer  "attribtue_id"
-    t.string   "attribute_title"
-    t.string   "attribute_url"
-    t.string   "attribute_thumbnailUrl"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "attribute_albumId"
+    t.boolean  "attribute_id"
+    t.boolean  "attribute_title"
+    t.boolean  "attribute_url"
+    t.boolean  "attribute_thumbnailUrl"
   end
 
 end
