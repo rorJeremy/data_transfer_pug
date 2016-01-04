@@ -1,6 +1,8 @@
 class Job < ActiveRecord::Base
   include HTTParty
 
+  has_and_belongs_to_many :fields
+
   def fetch
     response = HTTParty.get("#{self.source}")
     # Example below if you wanted to query the response for something.

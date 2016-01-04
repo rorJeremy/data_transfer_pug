@@ -11,20 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160102230922) do
+ActiveRecord::Schema.define(version: 20160103082120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "fields", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "fields_jobs", force: :cascade do |t|
+    t.integer "job_id"
+    t.integer "field_id"
+  end
+
+  add_index "fields_jobs", ["field_id"], name: "index_fields_jobs_on_field_id", using: :btree
+  add_index "fields_jobs", ["job_id"], name: "index_fields_jobs_on_job_id", using: :btree
 
   create_table "jobs", force: :cascade do |t|
     t.string   "source"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "attribute_albumId"
-    t.boolean  "attribute_id"
-    t.boolean  "attribute_title"
-    t.boolean  "attribute_url"
-    t.boolean  "attribute_thumbnailUrl"
   end
 
+  add_foreign_key "fields_jobs", "fields"
+  add_foreign_key "fields_jobs", "jobs"
 end
