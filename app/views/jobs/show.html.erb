@@ -18,6 +18,13 @@
           <td>Field: <%= field.name %></td>
         </tr>      
       <% end %>
+
+      <% @job.formats.each do |format| %>
+        <tr>
+          <td>Format: <%= format.name %></td>
+        </tr>      
+      <% end %>
+
   </tbody>
 </table>
 
