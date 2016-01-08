@@ -2,6 +2,7 @@ class Job < ActiveRecord::Base
   include HTTParty
 
   has_and_belongs_to_many :fields
+  has_and_belongs_to_many :formats
 
   def fetch
     response = HTTParty.get("#{self.source}")

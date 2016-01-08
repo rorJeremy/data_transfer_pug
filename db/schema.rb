@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160108005858) do
+ActiveRecord::Schema.define(version: 20160108012020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,14 @@ ActiveRecord::Schema.define(version: 20160108005858) do
     t.string "name"
   end
 
+  create_table "formats_jobs", id: false, force: :cascade do |t|
+    t.integer "job_id"
+    t.integer "format_id"
+  end
+
+  add_index "formats_jobs", ["format_id"], name: "index_formats_jobs_on_format_id", using: :btree
+  add_index "formats_jobs", ["job_id"], name: "index_formats_jobs_on_job_id", using: :btree
+
   create_table "jobs", force: :cascade do |t|
     t.string   "source"
     t.datetime "created_at"
@@ -42,4 +50,6 @@ ActiveRecord::Schema.define(version: 20160108005858) do
 
   add_foreign_key "fields_jobs", "fields"
   add_foreign_key "fields_jobs", "jobs"
+  add_foreign_key "formats_jobs", "formats"
+  add_foreign_key "formats_jobs", "jobs"
 end
