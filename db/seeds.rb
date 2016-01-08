@@ -27,3 +27,10 @@ Field.create!(name: "thumbnailUrl")
 Field.all.each do |field|
   first_job.fields << field
 end
+
+Format.create!(name: "Csv")
+Format.create!(name: "Txt")
+
+Format.all.each do |format|
+  first_job.formats << format
+end
