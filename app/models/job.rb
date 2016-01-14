@@ -14,19 +14,15 @@ class Job < ActiveRecord::Base
   end
 
   def create_csv
-    fields = self.fields.to_a
-    headers = []
-    fields.each do |field|
-      headers << field.name
-    end
+    fields = self.fields.map(&:name)
     job_data = self.fetch
 
-    CSV.open("file.csv", "wb", :write_headers=> true, :headers => headers) do |csv|
+    CSV.open("file.csv", "wb", :write_headers=> true, :headers => fields) do |csv|
       puts "creating a csv file"
       job_data.each do |blob|
         tmp_array = []
         fields.each do |field|
-          tmp_array << blob[field.name]
+          tmp_array << blob[field]
         end
         csv << tmp_array
       end
@@ -35,19 +31,15 @@ class Job < ActiveRecord::Base
 
   def create_txt
     puts "creating a txt file"
-    fields = self.fields.to_a
-    headers = []
-    fields.each do |field|
-      headers << field.name
-    end
-    
+    fields = self.fields.map(&:name)
+
     job_data = self.fetch
     File.open('file.txt', 'a+') do |file|
-      file.puts headers.join(", ")
+      file.puts fields.join(", ")
       job_data.each do |blob|
         tmp_array = []
         fields.each do |field|
-          tmp_array << blob[field.name]
+          tmp_array << blob[field]
         end
         file.puts tmp_array.join(", ") #will return a string without the array brackets, separating the elements with whatever is passed inside join
       end
