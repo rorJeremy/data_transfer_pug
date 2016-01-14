@@ -15,17 +15,30 @@ class Job < ActiveRecord::Base
 
   def create_csv
     CSV.open("file.csv", "wb") do |csv|
-      puts "grabbing the fields"
+      puts "creating a csv file"
       fields = self.fields.to_a
-      puts "grabbing the data"
       job_data = self.fetch
-      puts "iterating through the data"
       job_data.each do |blob|
         tmp_array = []
         fields.each do |field|
           tmp_array << blob[field.name]
         end
         csv << tmp_array
+      end
+    end
+  end
+
+  def create_txt
+    puts "creating a txt file"
+    fields = self.fields.to_a
+    job_data = self.fetch
+    File.open('file.txt', 'wb') do |file|
+      job_data.each do |blob|
+        tmp_array = []
+        fields.each do |field|
+          tmp_array << blob[field.name]
+        end
+        file.puts tmp_array.join(", ") #will return a string without the array brackets, separating the elements with whatever is passed inside join
       end
     end
   end
