@@ -14,10 +14,15 @@ class Job < ActiveRecord::Base
   end
 
   def create_csv
-    CSV.open("file.csv", "wb") do |csv|
+    fields = self.fields.to_a
+    headers = []
+    fields.each do |field|
+      headers << field.name
+    end
+    job_data = self.fetch
+
+    CSV.open("file.csv", "wb", :write_headers=> true, :headers => headers) do |csv|
       puts "creating a csv file"
-      fields = self.fields.to_a
-      job_data = self.fetch
       job_data.each do |blob|
         tmp_array = []
         fields.each do |field|
@@ -31,8 +36,14 @@ class Job < ActiveRecord::Base
   def create_txt
     puts "creating a txt file"
     fields = self.fields.to_a
+    headers = []
+    fields.each do |field|
+      headers << field.name
+    end
+    
     job_data = self.fetch
-    File.open('file.txt', 'wb') do |file|
+    File.open('file.txt', 'a+') do |file|
+      file.puts headers.join(", ")
       job_data.each do |blob|
         tmp_array = []
         fields.each do |field|
