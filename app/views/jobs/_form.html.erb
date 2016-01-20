@@ -20,6 +20,7 @@
     <div class="field form-group">
       <%= f.label :field %><br>
       <%= f.collection_select :field_ids, @fields, :id, :name, {}, {:multiple => true} %>
+      <%= link_to 'Create New Field', new_field_path %>
     </div>
     <div class="field form-group">
       <%= f.label :format %><br>

@@ -1,0 +1,28 @@
+<div class="text-center col-md-12">
+<%= form_for(@field) do |f| %>
+  <% if @field.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@field.errors.count, "error") %> prohibited this field from being saved:</h2>
+
+      <ul>
+      <% @field.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="col-md-6">
+    <div class="field form-group">
+      <%= f.label :name %><br>
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <div class="actions form-group">
+      <%= link_to "Cancel", jobs_path, class: 'btn btn-danger' %>
+      <%= f.submit :class => 'btn btn-success' %>
+    </div>
+  </div>
+<% end %>
+</div>
