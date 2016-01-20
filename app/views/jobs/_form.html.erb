@@ -1,3 +1,4 @@
+<div class="text-center col-md-12">
 <%= form_for(@job) do |f| %>
   <% if @job.errors.any? %>
     <div id="error_explanation">
@@ -10,8 +11,32 @@
       </ul>
     </div>
   <% end %>
+  <div class="col-md-6">
+    <div class="field form-group">
+      <%= f.label :source %><br>
+      <%= f.text_field :source, :class => 'form-control' %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
+    <div class="field form-group">
+      <%= f.label :field %><br>
+      <%= f.collection_select :field_ids, @fields, :id, :name, {}, {:multiple => true} %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :format %><br>
+      <%= f.collection_select :format_ids, @formats, :id, :name, {}, {:multiple => true} %>
+    </div>
+
+  </div>
+
+  <div class="col-md-12">
+    <div class="actions form-group">
+      <% if @job.new_record? %>
+        <%= link_to "Cancel", jobs_path, class: 'btn btn-danger' %>
+      <% else %>
+        <%= link_to "Cancel", job_path(@job), class: 'btn btn-danger' %>
+      <% end %>
+      <%= f.submit :class => 'btn btn-success' %>
+    </div>
   </div>
 <% end %>
+</div>
