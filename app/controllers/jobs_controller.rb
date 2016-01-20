@@ -15,10 +15,14 @@ class JobsController < ApplicationController
   # GET /jobs/new
   def new
     @job = Job.new
+    @fields = Field.all
+    @formats = Format.all
   end
 
   # GET /jobs/1/edit
   def edit
+    @fields = Field.all
+    @formats = Format.all
   end
 
   # POST /jobs
@@ -71,4 +75,9 @@ class JobsController < ApplicationController
     def job_params
       params[:job]
     end
+
+    def job_params
+      params.require(:job).permit(:source, :field_ids => [], :format_ids => [])
+    end
+
 end
