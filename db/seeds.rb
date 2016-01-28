@@ -34,3 +34,13 @@ Format.create!(name: "Txt")
 Format.all.each do |format|
   first_job.formats << format
 end
+
+TransferType.create!(name: "Email")
+TransferType.create!(name: "FTP")
+
+TransferType.all.each do |transfer_type|
+  first_job.transfer_types << transfer_type
+end
+
+
+
