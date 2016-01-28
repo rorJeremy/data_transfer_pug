@@ -1,2 +1,0 @@
-class TransferTypesController < ApplicationController
-end
