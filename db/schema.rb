@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160108012020) do
+ActiveRecord::Schema.define(version: 20160128021325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,8 +48,24 @@ ActiveRecord::Schema.define(version: 20160108012020) do
     t.datetime "updated_at"
   end
 
+  create_table "jobs_transfer_types", id: false, force: :cascade do |t|
+    t.integer "transfer_type_id"
+    t.integer "job_id"
+  end
+
+  add_index "jobs_transfer_types", ["job_id"], name: "index_jobs_transfer_types_on_job_id", using: :btree
+  add_index "jobs_transfer_types", ["transfer_type_id"], name: "index_jobs_transfer_types_on_transfer_type_id", using: :btree
+
+  create_table "transfer_types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "fields_jobs", "fields"
   add_foreign_key "fields_jobs", "jobs"
   add_foreign_key "formats_jobs", "formats"
   add_foreign_key "formats_jobs", "jobs"
+  add_foreign_key "jobs_transfer_types", "jobs"
+  add_foreign_key "jobs_transfer_types", "transfer_types"
 end

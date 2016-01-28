@@ -5,6 +5,7 @@ class Job < ActiveRecord::Base
 
   has_and_belongs_to_many :fields
   has_and_belongs_to_many :formats
+  has_and_belongs_to_many :transfer_types
 
   def fetch
     response = HTTParty.get("#{self.source}")
