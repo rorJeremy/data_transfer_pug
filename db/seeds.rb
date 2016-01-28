@@ -9,10 +9,6 @@
 #   job.fields.destroy_all
 # end
 
-# Field.all.each do |field|
-#   field.jobs.destroy_all
-# end
-
 Job.delete_all
 Field.delete_all
 
