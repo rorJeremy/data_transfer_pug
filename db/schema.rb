@@ -18,11 +18,11 @@ ActiveRecord::Schema.define(version: 20160128021325) do
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "fields_jobs", force: :cascade do |t|
+  create_table "fields_jobs", id: false, force: :cascade do |t|
     t.integer "job_id"
     t.integer "field_id"
   end
