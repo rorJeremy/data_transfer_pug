@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128021325) do
+ActiveRecord::Schema.define(version: 20160217023427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "destinations", force: :cascade do |t|
+    t.integer  "job_id"
+    t.integer  "transfer_type_id"
+    t.string   "name"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "destinations", ["job_id"], name: "index_destinations_on_job_id", using: :btree
+  add_index "destinations", ["transfer_type_id"], name: "index_destinations_on_transfer_type_id", using: :btree
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
@@ -48,14 +59,6 @@ ActiveRecord::Schema.define(version: 20160128021325) do
     t.datetime "updated_at"
   end
 
-  create_table "jobs_transfer_types", id: false, force: :cascade do |t|
-    t.integer "transfer_type_id"
-    t.integer "job_id"
-  end
-
-  add_index "jobs_transfer_types", ["job_id"], name: "index_jobs_transfer_types_on_job_id", using: :btree
-  add_index "jobs_transfer_types", ["transfer_type_id"], name: "index_jobs_transfer_types_on_transfer_type_id", using: :btree
-
   create_table "transfer_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -66,6 +69,4 @@ ActiveRecord::Schema.define(version: 20160128021325) do
   add_foreign_key "fields_jobs", "jobs"
   add_foreign_key "formats_jobs", "formats"
   add_foreign_key "formats_jobs", "jobs"
-  add_foreign_key "jobs_transfer_types", "jobs"
-  add_foreign_key "jobs_transfer_types", "transfer_types"
 end
