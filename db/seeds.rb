@@ -9,8 +9,8 @@
 #   job.fields.destroy_all
 # end
 
-Job.delete_all
-Field.delete_all
+Job.destroy_all
+Field.destroy_all
 
 first_job = Job.create!(source: "http://jsonplaceholder.typicode.com/photos")
 
@@ -34,9 +34,7 @@ end
 TransferType.create!(name: "Email")
 TransferType.create!(name: "FTP")
 
-TransferType.all.each do |transfer_type|
-  first_job.transfer_types << transfer_type
-end
+Destination.create!(name: "glyde06@hotmail.com", job_id: first_job.id, transfer_type_id: 1)
 
 
 
