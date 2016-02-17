@@ -25,6 +25,18 @@
         </tr>      
       <% end %>
 
+      <% @job.transfer_types.each do |transfer_type| %>
+        <tr>
+          <td>Transfer Type: <%= transfer_type.name %></td>
+        </tr>      
+      <% end %>
+
+      <% @job.destinations.each do |destination| %>
+        <tr>
+          <td>Destination: <%= destination.name %></td>
+        </tr>      
+      <% end %>      
+
   </tbody>
 </table>
 
